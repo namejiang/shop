@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Title Page</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./css/multi-select.css">
+</head>
+<body>
+  <h1>selected</h1>
+  <select id='pre-selected' multiple='multiple'>
+    <option selected src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="1">a elem_1elem_1elem_1</option>
+    <option src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="2">b elem_1elem_1elem_1</option>
+    <option src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="3">c elem_1elem_1elem_1</option>
+    <option src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="4">d elem_1elem_1elem_1</option>
+    <option src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="5">e elem_1elem_1elem_1</option>
+    <option src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="6">f elem_1elem_1elem_1</option>
+    <option src='img/switch.png' pic='￥200' msg="bababababababababababababababa" value="7">g elem_1elem_1elem_1</option>
+  </select>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+  <script src='./js/jquery.quicksearch.js'></script>
+  <script src="./js/jquery.multi-select.js"></script>
+  <script type="text/javascript">
+  $('select').multiSelect({
+        selectableHeader: "<div class='ms-title'>商品列表<input type='text' class='ms-search' autocomplete='off' placeholder='查找'></div>",
+        selectionHeader: "<div class='ms-title'>套餐列表</div>",
+        afterInit: function(ms){
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev().find('.ms-search'),
+                $selectionSearch = that.$selectionUl.prev().find('.ms-search'),
+                selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+            .on('keydown', function(e){
+            if (e.which === 40){
+                that.$selectableUl.focus();
+                return false;
+            }
+            });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+            .on('keydown', function(e){
+            if (e.which == 40){
+                that.$selectionUl.focus();
+                return false;
+            }
+            });
+        },
+        afterSelect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+        });
+  </script>
+</body>
+
+</html>
