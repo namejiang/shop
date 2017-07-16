@@ -1,0 +1,135 @@
+/* Write your styles */
+body{
+	background: #eee;
+}
+.app-p-0{
+	padding: 0;
+}
+.app-border-off{
+	border:none;
+}
+.app-nowrap{
+	display:block;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+}
+/**/
+.app-header{
+	position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1500;
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+.app-main{
+	position: relative;
+    height: 100%;
+    padding-top: 40px;
+    margin-bottom: 70px;
+    background: #fff;
+}
+.am-gallery li {
+	position: relative;
+}
+/**/
+.app-main .app-pg>li{
+	width: 100%;
+}
+.app-main .app-pg .am-avg-sm-2>li{
+	width: 25%;
+}
+.app-pg .am-avg-sm-2>li:nth-of-type(2n+1){
+	clear: none;		
+}
+.app-pg .am-avg-sm-2>li:nth-of-type(4n+1){
+    clear: both;
+}
+/**/
+.app-main .app-list {
+	margin: 0;
+}
+.app-main .app-list .am-list li{
+	padding: .5rem;
+}
+@media only screen and (max-width: 640px){
+	.app-main .app-list .am-list li .am-list-thumb {
+		max-height: 100px;
+	}
+}
+.app-main .app-list .am-list li .app-list-main{
+	padding-left: .6rem;
+}
+.app-main .app-list-main .app-title{
+	font-size: 1.4rem;
+    line-height: 1.3em;
+    max-height: 1.3em;
+}
+.app-main .app-list-main .app-msg{
+	font-size: 1rem;
+    line-height: 1.3em;
+    max-height: 1.3em;
+    color: #d42121;
+}
+.app-main .app-list-main .app-pic{
+	font-size: 1.8rem;
+    line-height: 1.3em;
+    max-height: 1.3em;
+    color: #f00;
+}
+.app-main .app-list-main .app-pic s{
+	color: #ccc;	
+    font-size: 1rem;
+    padding-left: .3rem;
+}
+.app-main .app-list-main .app-pic span{
+	float: right;
+    font-size: 1rem;
+    border-radius: 4px;
+    background: #f00;
+    padding: 0 .5rem;
+    color: #fff;
+}
+.app-main .app-list-main .app-pg{
+    font-size: 1.4rem;
+    line-height: 1.3em;
+    max-height: 1.3em;
+}
+.app-main .app-list-main .app-pg span{ 
+    float: right;
+    color: #d42121;
+}
+/**/
+.app-main .app-time-pic{
+	position: absolute;
+	padding: 2px 5px;
+	bottom: 83px;
+	left: 20px;
+	display: inherit;
+	background: #000;
+	color: #fff;
+}
+.app-main .app-time-pic i{
+	transform: rotateZ(90deg);	
+    margin-left: -10px;
+    color: #000;
+}
+.app-main .app-del-pic{
+	text-decoration:line-through;
+}
+.app-main .app-sales-pic {
+	color: #f00;
+}	
+/**/
+.app-footer{
+	background: #fff;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1500;
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
