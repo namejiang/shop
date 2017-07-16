@@ -1,6 +1,7 @@
 .ms-container{
   background: transparent url('../img/switch.png') no-repeat 50% 50%;
-  width: 420px;
+  width: 100%;
+  height: 100%;
 }
 
 .ms-container:after{
@@ -38,7 +39,7 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
   position: relative;
-  height: 250px;
+  height: calc(100% - 50px);
   padding: 0;
   overflow-y: auto;
 }
