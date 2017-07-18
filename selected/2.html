@@ -10,19 +10,29 @@
 
 <body style="background:#fff;padding:5px">
 	<select id='pre-selected' multiple='multiple'>
-		<option selected src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="a elem_1elem_1elem_1">a elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="b elem_1elem_1elem_1">b elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="c elem_1elem_1elem_1">c elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="d elem_1elem_1elem_1">d elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="e elem_1elem_1elem_1">e elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="f elem_1elem_1elem_1">f elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" value="g elem_1elem_1elem_1">g elem_1elem_1elem_1</option>
+		<option selected src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="1">a elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="2">b elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="3">c elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="4">d elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="5">e elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="6">f elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="7">g elem_1elem_1elem_1</option>
 	</select>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 	<script src='./js/jquery.quicksearch.js'></script>
 	<script src="./js/jquery.multi-select.js"></script>
 	<script type="text/javascript">
 		$(function () {
+			var tpl = `<tr id="{{id}}" class="product_id">
+								<td style="background-color: rgb(255, 255, 255);">{{id}}</td>
+								<td style="background-color: rgb(255, 255, 255);"><img src="{{src}}" width="40" height="40" class="imagesbg"></td>
+								<td class="aleft" style="padding-left: 0px; background-color: rgb(255, 255, 255);"><a class="cblue" href="{{url}}" target="_blank">{{title}}</a></td>
+								<td style="background-color: rgb(255, 255, 255);">{{msg}}</td>
+								<td style="background-color: rgb(255, 255, 255);"><span class="num corg">{{pic}}</span></td>
+								<td style="background-color: rgb(255, 255, 255);"><input type="text" name="huodong_money[{{id}}]" value="0.0" product_money="0.0" class="inputall input60"></td>
+								<td style="background-color: rgb(255, 255, 255);"><a href="javascript:;" class="admin_btn">删除</a></td>
+								<td style="background-color: rgb(255, 255, 255);"></td>
+							</tr>`;
 			$('select').multiSelect({
 				selectableHeader: "<div class='ms-title'>商品列表<input type='text' class='ms-search' autocomplete='off' placeholder='查找'></div>",
 				selectionHeader: "<div class='ms-title'>套餐列表</div>",
@@ -41,6 +51,26 @@
 					}
 					});
 
+					that.up = function (){
+						var list = $(selectionSearchString),
+							title = list.text().split("￥")[0],
+							id = list.attr("data-id"),
+							msg = list.attr("msg"),
+							pic = list.attr("pic"),
+							src = list.attr("src"),
+							tpls = tpl;console.log(that.$container.attr('id'),list)
+						tpls = tpls.replace(/{{id}}/gi,id)
+							.replace(/{{title}}/gi,title)
+							.replace(/{{msg}}/gi,msg)
+							.replace(/{{pic}}/gi,pic)
+							.replace(/{{src}}/gi,src)
+							var array_of_checked_values = $("select").multiselect("getChecked").map(function(){
+return this.value; 
+}).get();
+console.log(array_of_checked_values);
+						$(window.parent.document).find('#product_list').find("tr").eq(0).after(tpls);
+					}
+
 					that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
 					.on('keydown', function(e){
 					if (e.which == 40){
@@ -50,6 +80,7 @@
 					});
 				},
 				afterSelect: function(){
+					this.up();
 					this.qs1.cache();
 					this.qs2.cache();
 				},

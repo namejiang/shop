@@ -5,7 +5,7 @@
 	<title>选择商品</title>
 	<link type="text/css" rel="stylesheet" href="css/style.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/global.js"></script>
+	<!--<script type="text/javascript" src="js/global.js"></script>-->
 </head>
 
 <body style="background:#fff;padding:5px">
@@ -55,9 +55,25 @@
 	</form>
 	<script type="text/javascript">
 		$(function () {
+			var tpl = '<tr id="{{id}}" class="product_id">'+
+								'<td style="background-color: rgb(255, 255, 255);">{{id}}</td>'+
+								'<td style="background-color: rgb(255, 255, 255);"><img src="{{src}}" width="40" height="40" class="imagesbg"></td>'+
+								'<td class="aleft" style="padding-left: 0px; background-color: rgb(255, 255, 255);"><a class="cblue" href="{{url}}" target="_blank">{{title}}</a></td>'+
+								'<td style="background-color: rgb(255, 255, 255);">{{msg}}</td>'+
+								'<td style="background-color: rgb(255, 255, 255);"><span class="num corg">{{pic}}</span></td>'+
+								'<td style="background-color: rgb(255, 255, 255);"><input type="text" name="huodong_money[53]" value="0.0" product_money="0.0" class="inputall input60"></td>'+
+								'<td style="background-color: rgb(255, 255, 255);"><a href="javascript:;" class="admin_btn">删除</a></td>'+
+								'<td style="background-color: rgb(255, 255, 255);"></td>'+
+							'</tr>';
 			// 选择
 			$(".admin_edit").live("click", function () {
 				var _tr = $(this).parents("tr");
+				var tpls = tpl.replace(/{{id}}/gi,_tr.attr('id'))
+											.replace(/{{src}}/gi,_tr.find('images').attr('src'))
+											.replace(/{{title}}/gi,_tr.find('a.cblue').text())
+											.replace(/{{msg}}/gi,'')
+											.replace(/{{pic}}/gi,_tr.find('.num').text())
+				$(window.parent.document).find('#product_list').find("tr").eq(0).after(tpls);
 					_tr.find(".td1").html(
 						'<img src="./images/dui.png" />');
 					_tr.find(".td2").html('<a href="javascript:;" class="cblue">取消</a>');
@@ -65,6 +81,7 @@
 			// 取消
 			$(".cblue").live("click", function () {
 				var _tr = $(this).parents("tr");
+				$(window.parent.document).find('#product_list').find("#" + _tr.attr("id")).remove();
 				_tr.find(".td1").html('<a href="javascript:;" class="admin_edit">选择</a>');
 				_tr.find(".td2").html('');
 			})
