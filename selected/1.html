@@ -5,7 +5,7 @@
 	<title>选择商品</title>
 	<link type="text/css" rel="stylesheet" href="css/style.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/global.js"></script>
+	<!--<script type="text/javascript" src="js/global.js"></script>-->
 </head>
 
 <body style="background:#fff;padding:5px">
@@ -57,6 +57,7 @@
 		$(function () {
 			// 选择
 			$(".admin_edit").live("click", function () {
+				$(window.parent.document).find('#product_list').find("tr").eq(0).after("json.html");
 				var _tr = $(this).parents("tr");
 					_tr.find(".td1").html(
 						'<images src="http://www.phpshe.com/demo/phpshe/template/default/admin/images/dui.png" />');
@@ -65,6 +66,7 @@
 			// 取消
 			$(".cblue").live("click", function () {
 				var _tr = $(this).parents("tr");
+				$(window.parent.document).find('#product_list').find("#" + _tr.attr("id")).remove();
 				_tr.find(".td1").html('<a href="javascript:;" class="admin_edit">选择</a>');
 				_tr.find(".td2").html('');
 			})
