@@ -134,16 +134,16 @@
 							<tr>
 								<td align="right">有效日期：</td>
 								<td>
-									<input type="text" name="info[huodong_stime]" value="2017-07-13 22:30" onfocus="WdatePicker({dateFmt:&#39;yyyy-MM-dd HH:mm&#39;})"
-									    class="Wdate inputall"> 至 <input type="text" name="info[huodong_etime]" value="2017-07-23 22:30" onfocus="WdatePicker({dateFmt:&#39;yyyy-MM-dd HH:mm&#39;})"
+									<input type="text" name="info[huodong_stime]" value="2017-07-13 22:30" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
+									    class="Wdate inputall"> 至 <input type="text" name="info[huodong_etime]" value="2017-07-23 22:30" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
 									    class="Wdate inputall">
 								</td>
 							</tr>
 							<tr>
 								<td align="right">选择商品：</td>
-								<td><a href="1.html" onclick="return pe_dialog(this, &#39;选择商品&#39;, 1000, 600, &#39;product_list&#39;)"
+								<td><a href="1.html" onclick="return pe_dialog(this, '选择商品', 1000, 600, 'product_list')"
 									    class="admin_btn">选择商品</a>
-									<a href="2.html" onclick="return pe_dialog(this, &#39;选择商品&#39;, 1000, 600, &#39;product_list&#39;)"
+									<a href="2.html" onclick="return pe_dialog(this, '选择商品', 1000, 600, 'product_list')"
 										class="admin_btn">选择商品1</a></td>
 							</tr>
 						</tbody>
@@ -190,6 +190,16 @@
 		<script type="text/javascript" src="js/WdatePicker.js"></script>
 		<script type="text/javascript">
 			$(function () {
+				var tpl = `<tr id="53" class="product_id">
+								<td style="background-color: rgb(255, 255, 255);">53</td>
+								<td style="background-color: rgb(255, 255, 255);"><images src="images/thumb_100x100_nopic.png" width="40" height="40" class="imagesbg"></td>
+								<td class="aleft" style="padding-left: 0px; background-color: rgb(255, 255, 255);"><a class="cblue" href="http://www.phpshe.com/demo/phpshe/product/53" target="_blank">2312</a></td>
+								<td style="background-color: rgb(255, 255, 255);"></td>
+								<td style="background-color: rgb(255, 255, 255);"><span class="num corg">0.0</span></td>
+								<td style="background-color: rgb(255, 255, 255);"><input type="text" name="huodong_money[53]" value="0.0" product_money="0.0" class="inputall input60"></td>
+								<td style="background-color: rgb(255, 255, 255);"><a href="javascript:;" class="admin_btn">删除</a></td>
+								<td style="background-color: rgb(255, 255, 255);"></td>
+							</tr>`
                 // 删除
 				$("#product_list .admin_btn").live("click", function () {
 					$(this).parents("tr").remove();
@@ -239,6 +249,7 @@
 			$(".now").css("width", $(".right_main").outerWidth());
 			//$(".right_main").css("height", $(window).height() -  $(".pagetop").height() - $(".now:eq(0)").outerHeight() - $(".right_bottom").outerHeight() + 38);
 		}
+		
 		$(function () {
 			if ($(".right_bottom").height() == 0) {
 				$(".right_bottom").remove();

@@ -71,13 +71,20 @@ function pe_dialog(_this, _title, width, height, id) {
 	var url = (typeof(_this) == 'object') ? $(_this).attr("href") : _this;
 	var layer_index = layer.open({
 		type: 2,
-		title: _title,
 		area: [width+'px', height+'px'],
 		fixed: false, //不固定
-		shadeClose: true,
-		shade: 0.5,
-		content: url //iframe的url
+		maxmin: true,
+		content: url
 	});
+	// var layer_index = layer.open({
+	// 	type: 2,
+	// 	title: _title,
+	// 	area: [width+'px', height+'px'],
+	// 	fixed: false, //不固定
+	// 	shadeClose: true,
+	// 	shade: 0.5,
+	// 	content: url //iframe的url
+	// });
 	if (width == 'max' && height == 'max') layer.full(layer_index);
 	return false;
 }

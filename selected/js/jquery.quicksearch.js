@@ -130,6 +130,7 @@
 			}
 			
 			var t = (typeof options.selector === "string") ? jq_results.find(options.selector) : $(target).not(options.noResults);
+			// console.log('search',t)
 			cache = t.map(function () {
 				return e.strip_html(this.innerHTML);
 			});

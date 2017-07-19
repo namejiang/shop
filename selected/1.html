@@ -55,6 +55,18 @@
 	</form>
 	<script type="text/javascript">
 		$(function () {
+			function init(){
+				$.each($(window.parent.document).find('#product_list').find("tr"),function(key,ptr){
+					var id = Number( $(ptr).attr('id') )
+					$.each($("#form tr"),function(keys,tr){
+						if(id == Number( $(tr).attr('id') ) ){
+							$(tr).find(".td1").html('<img src="./images/dui.png" />');
+							$(tr).find(".td2").html('<a href="javascript:;" class="cblue">取消</a>');
+						}
+					})
+				})
+			}
+			init()
 			var tpl = '<tr id="{{id}}" class="product_id">'+
 								'<td style="background-color: rgb(255, 255, 255);">{{id}}</td>'+
 								'<td style="background-color: rgb(255, 255, 255);"><img src="{{src}}" width="40" height="40" class="imagesbg"></td>'+
