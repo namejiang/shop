@@ -11,13 +11,13 @@
 <body style="background:#fff;padding:5px">
 	<select id='pre-selected' multiple='multiple'>
 		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="1" value="1">a elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="2" value="2">b elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="3" value="3">c elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="4" value="4">d elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="5" value="5">e elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="6" value="6">f elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="7" value="7">g elem_1elem_1elem_1</option>
-		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="53" value="53">g elem_1elem_1elem_1</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="2" value="2">b elem_1elem_1elem_2</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="3" value="3">c elem_1elem_1elem_3</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="4" value="4">d elem_1elem_1elem_4</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="5" value="5">e elem_1elem_1elem_5</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="6" value="6">f elem_1elem_1elem_6</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="7" value="7">g elem_1elem_1elem_7</option>
+		<option src='images/thumb_100x100_nopic.png' pic='￥200' msg="bababababababababababababababa" data-id="53" value="53">g elem_1elem_1elem_53</option>
 	</select>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 	<script src='./js/jquery.quicksearch.js'></script>
@@ -54,6 +54,7 @@
 						$selectionSearch = that.$selectionUl.prev().find('.ms-search'),
 						selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
 						selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+						selectionSearchId = '#'+that.$container.attr('id')+' .ms-elem-selection[data-id="';
 
 					that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
 					.on('keydown', function(e){
@@ -63,24 +64,16 @@
 					}
 					});
 
-					that.up = function (title,isadd){
-						var list = $(isadd?selectionSearchString:selectableSearchString),tpls = tpl;
-						$.each(list, function(key,li){
-							var text = $(li).find('div').eq(0).html()
-							if(title == text){
-								list = $(li);
-								return false;
-							} 
-						})
-						var id = list.attr("data-id")
+					that.up = function (id,isadd){
 						if(isadd){
-							tpls = tpls.replace(/{{id}}/gi,list.attr("data-id"))
-								.replace(/{{title}}/gi,title)
-								.replace(/{{msg}}/gi,list.attr("msg"))
-								.replace(/{{pic}}/gi,list.attr("pic"))
-								.replace(/{{src}}/gi,list.attr("src"))
+							var li = $(selectionSearchId+id+'"]'),tpls = tpl;
+							tpls = tpls.replace(/{{id}}/gi,id)
+								.replace(/{{title}}/gi, $(li[0]).text().split('￥')[0])
+								.replace(/{{msg}}/gi, $(li[0]).attr("msg"))
+								.replace(/{{pic}}/gi, $(li[0]).attr("pic"))
+								.replace(/{{src}}/gi, $(li[0]).attr("src"))
 							$(window.parent.document).find('#product_list').find("tr").eq(0).after(tpls);
-						} else {
+						} else {console.log(11,id)
 							$(window.parent.document).find('#product_list').find("tr#"+id).remove();
 						}	
 					}
@@ -93,13 +86,13 @@
 					}
 					});
 				},
-				afterSelect: function(text){
-					this.up(text[0],true);
+				afterSelect: function(id){
+					this.up(id[0],true);
 					this.qs1.cache();
 					this.qs2.cache();
 				},
-				afterDeselect: function(text){
-					this.up(text[0]);
+				afterDeselect: function(id){
+					this.up(id[0]);
 					this.qs1.cache();
 					this.qs2.cache();
 				}
