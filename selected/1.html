@@ -5,7 +5,7 @@
 	<title>选择商品</title>
 	<link type="text/css" rel="stylesheet" href="css/style.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<!--<script type="text/javascript" src="js/global.js"></script>-->
+	<script type="text/javascript" src="js/global.js"></script>
 </head>
 
 <body style="background:#fff;padding:5px">
@@ -61,7 +61,7 @@
 					<td style="padding:5px 7px"><images src="images/thumb_100x100_nopic.png" width="40" height="40"
 						    class="imagesbg"></td>
 					<td class="aleft" style="padding-left:0"><a class="cblue" href="#" target="_blank">2312</a></td>
-					<td></td>
+					<td class="msg"></td>
 					<td><span class="num corg">0.0</span></td>
 					<td class="td1" style="font-size:12px;padding:7px 0;"><a href="javascript:;" class="admin_edit">选择</a></td>
 					<td class="td2" style="font-size:12px;"></td>
@@ -97,14 +97,24 @@
 								'<td style="background-color: rgb(255, 255, 255);"><a href="javascript:;" class="admin_btn">删除</a></td>'+
 								'<td style="background-color: rgb(255, 255, 255);"></td>'+
 							'</tr>';
+							
+			function uoTpl(json){
+				return tpl.replace(/{{id}}/gi,json.id)
+										.replace(/{{src}}/gi,json.src)
+										.replace(/{{title}}/gi,json.title)
+										.replace(/{{msg}}/gi,json.msg)
+										.replace(/{{pic}}/gi,json.pic)
+			}
 			// 选择
 			$(".admin_edit").live("click", function () {
 				var _tr = $(this).parents("tr");
-				var tpls = tpl.replace(/{{id}}/gi,_tr.attr('id'))
-											.replace(/{{src}}/gi,_tr.find('images').attr('src'))
-											.replace(/{{title}}/gi,_tr.find('a.cblue').text())
-											.replace(/{{msg}}/gi,'')
-											.replace(/{{pic}}/gi,_tr.find('.num').text())
+				var tpls = uoTpl({
+					id:_tr.attr('id'),
+					src:_tr.find('images').attr('src'),
+					title:_tr.find('a.cblue').text(),
+					msg:_tr.find('.msg').text(),
+					pic:_tr.find('.num').text()
+				})
 				$(window.parent.document).find('#product_list').find("tr").eq(0).after(tpls);
 					_tr.find(".td1").html(
 						'<img src="./images/dui.png" />');
@@ -120,6 +130,18 @@
 			// 下拉求换 iframe
 			$("select").change(function () {
 				window.location.href = $(this).find("option:selected").attr("href");
+			})
+			// 搜索
+			$(".input_btn").change(function () {
+				var keyWord = $("inputtext").val()
+				$.git("url?keyWord="+keyWord, function(res){
+					if(res.status == 200){
+						$("table tr[id]").remove()
+						$("table").appendChild( uoTpl(res.data) )
+					}else{
+						pe_alert(res.msg)
+					}
+				})
 			})
 		})
 	</script>
